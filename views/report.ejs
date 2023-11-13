@@ -1,0 +1,350 @@
+<%- include('./partials/navbar',user)%>
+<div class="w-75 text-center container mt-5">
+    <%if (tab === 0){%>
+                <h2 class="text-center mb-5">تقرير صرف التعيين الجاف</h2>
+        <%} else if (tab === 1) {%>
+            <h2 class="text-center mb-5">تقرير صرف التعيين الطازج</h2>
+            <%} else if (tab === 2) {%>
+                <h2 class="text-center mb-5">تقرير صرف الأصناف من المستودع</h2>
+                <%} else if (tab === 4){%>
+                    <h2 class="text-center mb-5">تقرير رجوع الأصناف</h2>
+                <%} else {%>
+                    <h2 class="text-center mb-5">تقرير صرف المشتروات</h2>
+                    <%}%>
+    <!-- <div class="text-center"><%#- include('./partials/tabs',tab,url)%></div> -->
+        <div class="w-50 py-3">
+            <form action="/reports/<%=tab%>" method="get">
+                <div class="input-group">
+                        <input type="hidden" value="<%=parseInt(page||1)%>" name="page">
+                        <input type="search" class="form-control rounded" placeholder="بحث" aria-label="بحث"
+                            aria-describedby="search-addon" name="q" value="<%=q%>"/>
+                        <button type="submit" class="btn btn-primary mx-1 rounded"> <i class="bi bi-search"></i> </button>
+                </div>
+            </form>
+        </div>
+        <%if (tab === 3) {%>
+         <%if (reports.length > 0) {%>
+            <table
+                class="table table-responsive table-hover table-bordered mx-auto bg-white rounded shadow text-center">
+                <thead class="table-primary">
+                    <tr class="text-center">
+                        <th>اسم الصنف</th>
+                        <th>نوع الصنف</th>
+                        <th>الكمية المصروفة</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% for (let report of reports) {%>
+                        <tr>
+                            <td>
+                                <%= report._id.name %>
+                            </td>
+                            <td>
+                                <%= report._id.type %>
+                            </td>
+                            <td>
+                                <%if (report.unit !== 'عدد') {%>
+                                <%= report.total >= 1000 && report.unit === 'جرام'?report.total / 1000 : report.total %> <%if (report.total > 0) {%><%= report.total >= 1000 && report.unit === 'جرام'?'كيلو' :report.unit %> <%}%>
+                                <%} else {%>
+                                    <%= report.total %>
+                                    <%}%>
+                            </td>
+
+                        </tr>
+                        <% } %>
+                </tbody>
+            </table>
+                        <%if (pagesCount > 1 && count> limit) {%>
+                <nav aria-label="Page navigation example" class="justify-content-center d-flex">
+                    <ul class="pagination">
+                        <%if (page> 1) {%> <li class="page-item"><a class="page-link"
+                                    href="?page=<%=parseInt(page)-1%><%if (q) {%>&q=<%=q%> <%}%>">السابق</a></li>
+                            <%}%>
+                                <%for (let i=0; i < parseInt(pagesCount); i++) {%>
+                                    <li class="<%if (parseInt(page) === i+1) {%> page-item active <%}else {%> page-item <%}%>>"><a class="page-link" href="<%if (parseInt(page) === i+1) {%>#<%}else {%>?page=<%=i+1%><%if (q) {%>&q=<%=q%> <%}%> <%}%>">
+                                            <%=i+1%>
+                                        </a></li>
+                                    <%}%>
+
+
+                                        <%if (page < parseInt(pagesCount)) {%>
+                                            <li class="page-item"><a class="page-link"
+                                                    href="?page=<%=parseInt(page)+1%><%if (q) {%>&q=<%=q%> <%}%>">التالي</a></li>
+                                            <%}%>
+                    </ul>
+                </nav>
+                <%}%>
+            <%} else {%>
+                
+                        <div class="card text-center mb-3">
+                            <h3 class="text-muted card-body">لا يوجد بيانات</h3>
+                        </div>
+                <%}%>           
+    <%} else if (tab === 2) {%>
+        <%if (reports.length > 0) {%>
+            <table
+                class="table table-responsive table-hover table-bordered mx-auto bg-white rounded shadow text-center">
+                <thead class="table-primary">
+                    <tr class="text-center">
+                        <th>اسم الصنف</th>
+                        <th>نوع الصنف</th>
+                        <th>الكمية المضافة</th>
+                        <th>الإجمالي</th>
+                        <th>تاريخ الصرف</th>
+                        <%if (user.role === 'admin'){%>
+                            <th>خيارات</th>
+                        <%}%>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% for (let report of reports) {%>
+                        <tr>
+                            <td>
+                                <%= report.name %>
+                            </td>
+                            <td>
+                                <%= report.type%>
+                            </td>
+                            <td>
+                                <%if (report.unit !== 'عدد') {%>
+                                <%= report.amount >= 1000 && report.unit === 'جرام'?report.amount / 1000 : report.amount %> <%if (report.amount > 0) {%><%= report.amount >= 1000 && report.unit === 'جرام'?'كيلو' :report.unit %> <%}%>
+                                <%} else {%>
+                                    <%= report.amount %>
+                                    <%}%>
+                            </td>
+                            <td>
+                                <%if (report.unit !== 'عدد') {%>
+                                <%= report.total >= 1000 && report.unit === 'جرام'?report.total / 1000 : report.total %> <%if (report.total > 0) {%><%= report.total >= 1000 && report.unit === 'جرام'?'كيلو' :report.unit %> <%}%>
+                                <%} else {%>
+                                    <%= report.total %>
+                                    <%}%>
+                            </td>
+                            <td>
+                                <%= moment(new Date(report.date)).format('DD-MM-YYYY') %>
+                            </td>
+
+                            <%if (user.role === 'admin'){%>
+                                <td>
+                                <form action="/reports/<%=tab%>/<%=report._id%>/delete?_method=DELETE" method="post">
+                                    <button type="submit" class="btn btn-link text-danger text-decoration-none">
+                                            <i class="bi bi-trash-fill"></i>
+                                    </button>
+                                </form>
+                            </td>
+                                <%}%>
+
+                        </tr>
+                        <% } %>
+                </tbody>
+            </table>
+                        <%if (pagesCount > 1 && count> limit) {%>
+                <nav aria-label="Page navigation example" class="justify-content-center d-flex">
+                    <ul class="pagination">
+                        <%if (page> 1) {%> <li class="page-item"><a class="page-link"
+                                    href="?page=<%=parseInt(page)-1%><%if (q) {%>&q=<%=q%> <%}%>">السابق</a></li>
+                            <%}%>
+                                <%for (let i=0; i < parseInt(pagesCount); i++) {%>
+                                    <li class="<%if (parseInt(page) === i+1) {%> page-item active <%}else {%> page-item <%}%>>"><a class="page-link" href="<%if (parseInt(page) === i+1) {%>#<%}else {%>?page=<%=i+1%><%if (q) {%>&q=<%=q%> <%}%> <%}%>">
+                                            <%=i+1%>
+                                        </a></li>
+                                    <%}%>
+
+
+                                        <%if (page < parseInt(pagesCount)) {%>
+                                            <li class="page-item"><a class="page-link"
+                                                    href="?page=<%=parseInt(page)+1%><%if (q) {%>&q=<%=q%> <%}%>">التالي</a></li>
+                                            <%}%>
+                    </ul>
+                </nav>
+                <%}%>
+            <%} else {%>
+                
+                        <div class="card text-center mb-3">
+                            <h3 class="text-muted card-body">لا يوجد بيانات</h3>
+                        </div>
+                <%}%>        
+    <%} else if (tab === 4){%>
+        <%if (reports.length > 0) {%>
+            <table
+                class="table table-responsive table-hover table-bordered mx-auto bg-white rounded shadow text-center">
+                <thead class="table-primary">
+                    <tr class="text-center">
+                        <th>اسم الصنف</th>
+                        <th>الكمية قبل</th>
+                        <th>الكمية المضافة</th>
+                        <th>الكمية الحالية</th>
+                        <th>الوجبة</th>
+                        <th>تاريخ الرجوع</th>
+                        <%if (user.role === 'admin'){%>
+                            <th>خيارات</th>
+                        <%}%>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% for (let report of reports) {%>
+                        <tr>
+                            <td>
+                                <%= report.name %>
+                            </td>
+                            <td>
+                                <%if (report.unit !== 'عدد') {%>
+                                <%= report.amountBefore >= 1000 && report.unit === 'جرام'?report.amountBefore / 1000 : report.amountBefore %> <%if (report.amountBefore > 0) {%><%= report.amountBefore >= 1000 && report.unit === 'جرام'?'كيلو' :report.unit %> <%}%>
+                                <%} else {%>
+                                    <%= report.amountBefore %>
+                                    <%}%>
+                            </td>
+                            <td>
+                                <%if (report.unit !== 'عدد') {%>
+                                <%= report.amountChecked >= 1000 && report.unit === 'جرام'?report.amountChecked / 1000 : report.amountChecked %> <%if (report.amountChecked > 0) {%><%= report.amountChecked >= 1000 && report.unit === 'جرام'?'كيلو' :report.unit %> <%}%>
+                                <%} else {%>
+                                    <%= report.amountChecked %>
+                                    <%}%>
+                            </td>
+                            <td>
+                                <%if (report.unit !== 'عدد') {%>
+                                <%= report.rest >= 1000 && report.unit === 'جرام'?report.rest / 1000 : report.rest %> <%if (report.rest > 0) {%><%= report.rest >= 1000 && report.unit === 'جرام'?'كيلو' :report.unit %> <%}%>
+                                <%} else {%>
+                                    <%= report.rest %>
+                                    <%}%>
+                            </td>
+                            <td>
+                                <%=report.meal %>
+                            </td>
+                            <td>
+                                <%= moment(new Date(report.date)).format('DD-MM-YYYY') %>
+                            </td>
+
+                            <%if (user.role === 'admin'){%>
+                                <td>
+                                <form action="/reports/<%=tab%>/<%=report._id%>/delete?_method=DELETE" method="post">
+                                    <button type="submit" class="btn btn-link text-danger text-decoration-none">
+                                            <i class="bi bi-trash-fill"></i>
+                                    </button>
+                                </form>
+                            </td>
+                                <%}%>
+
+                        </tr>
+                        <% } %>
+                </tbody>
+            </table>
+                        <%if (pagesCount> 1 && count > limit) {%>
+                <nav aria-label="Page navigation example" class="justify-content-center d-flex">
+                    <ul class="pagination">
+                        <%if (page> 1) {%> <li class="page-item"><a class="page-link"
+                                    href="?page=<%=parseInt(page)-1%><%if (q) {%>&q=<%=q%> <%}%>">السابق</a></li>
+                            <%}%>
+                                <%for (let i=0; i < parseInt(pagesCount); i++) {%>
+                                    <li class="<%if (parseInt(page) === i+1) {%> page-item active <%}else {%> page-item <%}%>>"><a class="page-link" href="<%if (parseInt(page) === i+1) {%>#<%}else {%>?page=<%=i+1%><%if (q) {%>&q=<%=q%> <%}%> <%}%>">
+                                            <%=i+1%>
+                                        </a></li>
+                                    <%}%>
+
+
+                                        <%if (page < parseInt(pagesCount)) {%>
+                                            <li class="page-item"><a class="page-link"
+                                                    href="?page=<%=parseInt(page)+1%><%if (q) {%>&q=<%=q%> <%}%>">التالي</a></li>
+                                            <%}%>
+                    </ul>
+                </nav>
+                <%}%>
+            <%} else {%>
+                
+                        <div class="card text-center mb-3">
+                            <h3 class="text-muted card-body">لا يوجد بيانات</h3>
+                        </div>
+                <%}%>
+    <%} else {%>
+        <%if (reports.length > 0) {%>
+            <table
+                class="table table-responsive table-hover table-bordered mx-auto bg-white rounded shadow text-center">
+                <thead class="table-primary">
+                    <tr class="text-center">
+                        <th>اسم الصنف</th>
+                        <th>الكمية قبل الصرف</th>
+                        <th>الكمية المصروفة</th>
+                        <th>المخزون المتبقي</th>
+                        <th>الوجبة</th>
+                        <th>تاريخ الصرف</th>
+                        <%if (user.role === 'admin'){%>
+                            <th>خيارات</th>
+                        <%}%>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% for (let report of reports) {%>
+                        <tr>
+                            <td>
+                                <%= report.name %>
+                            </td>
+                            <td>
+                                <%if (report.unit !== 'عدد') {%>
+                                <%= report.amountBefore >= 1000 && report.unit === 'جرام'?report.amountBefore / 1000 : report.amountBefore %> <%if (report.amountBefore > 0) {%><%= report.amountBefore >= 1000 && report.unit === 'جرام'?'كيلو' :report.unit %> <%}%>
+                                <%} else {%>
+                                    <%= report.amountBefore %>
+                                    <%}%>
+                            </td>
+                            <td>
+                                <%if (report.unit !== 'عدد') {%>
+                                <%= report.amountChecked >= 1000 && report.unit === 'جرام'?report.amountChecked / 1000 : report.amountChecked %> <%if (report.amountChecked > 0) {%><%= report.amountChecked >= 1000 && report.unit === 'جرام'?'كيلو' :report.unit %> <%}%>
+                                <%} else {%>
+                                    <%= report.amountChecked %>
+                                    <%}%>
+                            </td>
+                            <td>
+                                <%if (report.unit !== 'عدد') {%>
+                                <%= report.rest >= 1000 && report.unit === 'جرام'?report.rest / 1000 : report.rest %> <%if (report.rest > 0) {%><%= report.rest >= 1000 && report.unit === 'جرام'?'كيلو' :report.unit %> <%}%>
+                                <%} else {%>
+                                    <%= report.rest %>
+                                    <%}%>
+                            </td>
+                            <td>
+                                <%=report.meal %>
+                            </td>
+                            <td>
+                                <%= moment(new Date(report.date)).format('DD-MM-YYYY') %>
+                            </td>
+
+                            <%if (user.role === 'admin'){%>
+                                <td>
+                                <form action="/reports/<%=tab%>/<%=report._id%>/delete?_method=DELETE" method="post">
+                                    <button type="submit" class="btn btn-link text-danger text-decoration-none">
+                                            <i class="bi bi-trash-fill"></i>
+                                    </button>
+                                </form>
+                            </td>
+                                <%}%>
+
+                        </tr>
+                        <% } %>
+                </tbody>
+            </table>
+                        <%if (pagesCount> 1 && count > limit) {%>
+                <nav aria-label="Page navigation example" class="justify-content-center d-flex">
+                    <ul class="pagination">
+                        <%if (page> 1) {%> <li class="page-item"><a class="page-link"
+                                    href="?page=<%=parseInt(page)-1%><%if (q) {%>&q=<%=q%> <%}%>">السابق</a></li>
+                            <%}%>
+                                <%for (let i=0; i < parseInt(pagesCount); i++) {%>
+                                    <li class="<%if (parseInt(page) === i+1) {%> page-item active <%}else {%> page-item <%}%>>"><a class="page-link" href="<%if (parseInt(page) === i+1) {%>#<%}else {%>?page=<%=i+1%><%if (q) {%>&q=<%=q%> <%}%> <%}%>">
+                                            <%=i+1%>
+                                        </a></li>
+                                    <%}%>
+
+
+                                        <%if (page < parseInt(pagesCount)) {%>
+                                            <li class="page-item"><a class="page-link"
+                                                    href="?page=<%=parseInt(page)+1%><%if (q) {%>&q=<%=q%> <%}%>">التالي</a></li>
+                                            <%}%>
+                    </ul>
+                </nav>
+                <%}%>
+            <%} else {%>
+                
+                        <div class="card text-center mb-3">
+                            <h3 class="text-muted card-body">لا يوجد بيانات</h3>
+                        </div>
+                <%}%>
+               <%}%>    
+            </div>
+        </html>

@@ -1,0 +1,11 @@
+<div class="mt-4 mb-4 card-body w-50 rounded bg-white p-0">
+<ul class="nav nav-pills nav-fill p-0">
+    <a class="nav-link <%= tab === 0? "active" : ""%>" aria-current="page" href="/<%=url%>/0">تعيين جاف</a>
+    <a class="nav-link <%= tab === 1? "active" : ""%>" href="/<%=url%>/1">تعيين طازج</a>
+        <%if (url === 'reports') {%>
+            <a class="nav-link <%= tab === 5? "active" : ""%>" href="/<%=url%>/5">مشتروات</a>
+            <a class="nav-link <%= tab === 2? "active" : ""%>" href="/<%=url%>/2">صرفية المستودع</a>
+            <!-- <a class="nav-link <%#= tab === 3? "active" : ""%>" href="/<%#=url%>/3">المصروف خلال الشهر</a> -->
+        <%}%>
+</ul>
+</div>

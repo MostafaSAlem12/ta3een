@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="ar">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/public/css/bootstrap.min.css" />
+    <link
+      rel="stylesheet"
+      href="/public/bootstrap-icons-1.10.3/bootstrap-icons.css"
+    />
+    <!-- <link rel="stylesheet" href="css/bootstrap.min.css" /> -->
+    <!-- <link rel="stylesheet" href="bootstrap-icons.min.css" /> -->
+    <!-- <link rel="stylesheet" href="/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="/bootstrap-icons-1.10.3/bootstrap-icons.css" /> -->
+
+    <!-- <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM"
+      crossorigin="anonymous"
+    /> -->
+    <!-- <link rel="stylesheet" href="../../public/style/style.css" /> -->
+    <link rel="icon" type="image/x-icon" href="/public/images/logo.png" />
+    <title>منظومة مخازن التعيينات</title>
+  </head>
+
+  <body style="height: 100%; background-color: antiquewhite" dir="rtl">
+    <nav
+      class="sticky-top navbar navbar-dark bg-dark p-2 d-flex justify-content-between"
+    >
+      <div>
+        <a class="navbar-brand" href="/">
+          <img src="/public/images/logo.png" alt="" width="80" />
+        </a>
+        <a href="/" class="btn btn-link text-decoration-none text-light"
+          ><i class="bi bi-house-door-fill"></i> الصفحة الرئيسية</a
+        >
+        <%if (user.role === 'admin'){%>
+        <select
+          name=""
+          id="categoriesCrud"
+          class="btn btn-link text-decoration-none text-light bg-dark text-end"
+          onchange="this.options[this.selectedIndex].value && (window.location = this.options[this.selectedIndex].value);"
+        >
+          <option value="" class="" hidden>الأصناف</option>
+          <optgroup label="الجاف">
+            <option value="/dry/add">-اضافة صنف</option>
+            <option value="/dry/edit">-تعديل صنف</option>
+            <option value="/dry/delete">-حذف صنف</option>
+          </optgroup>
+          <optgroup label="الطازج">
+            <option value="/fresh/add">-اضافة صنف</option>
+            <option value="/fresh/edit">-تعديل صنف</option>
+            <option value="/fresh/delete">-حذف صنف</option>
+          </optgroup>
+          <optgroup label="المشتروات">
+            <option value="/purchases/add">-اضافة صنف</option>
+            <option value="/purchases/edit">-تعديل صنف</option>
+            <option value="/purchases/delete">-حذف صنف</option>
+          </optgroup>
+          <!-- <option value="/dry/addCheck">إضافة إلى وجبة</option> -->
+          <!-- <option value="#">خروج صنف</option> -->
+        </select>
+        <%}%> <%if (user.role !== 'leader') {%>
+        <select
+          name=""
+          id="addAmount"
+          class="btn btn-link text-decoration-none text-light bg-dark text-end"
+          onchange="this.options[this.selectedIndex].value && (window.location = this.options[this.selectedIndex].value);"
+        >
+          <option value="" class="" hidden>صرف من المستودع</option>
+          <option value="/dry/addAmount">التعيين الجاف</option>
+          <option value="/fresh/addAmount">التعيين الطازج</option>
+          <!-- <option value="/dry/addCheck">إضافة إلى وجبة</option> -->
+          <!-- <option value="#">خروج صنف</option> -->
+        </select>
+        <!-- <select
+          name=""
+          id="dry"
+          class="btn btn-link text-decoration-none text-light bg-dark text-end"
+          onchange="this.options[this.selectedIndex].value && (window.location = this.options[this.selectedIndex].value);"
+        >
+          <option value="" class="" hidden>التعيين الجاف</option>
+          <%#if (user.role === 'admin'){%>
+          <option value="/dry/add">اضافة صنف</option>
+          <option value="/dry/edit">تعديل صنف</option>
+          <option value="/dry/delete">حذف صنف</option>
+          <%#}%>
+          <option value="/dry/addAmount">صرف من المستودع</option>
+          <!-- <option value="/dry/addCheck">إضافة إلى وجبة</option> -->
+        <!-- <option value="#">خروج صنف</option> -->
+        <!-- </select> -->
+        <!-- <select
+          name=""
+          id="fresh"
+          class="btn btn-link text-decoration-none text-light bg-dark text-end"
+          onchange="this.options[this.selectedIndex].value && (window.location = this.options[this.selectedIndex].value);"
+        >
+          <option value="" class="" hidden>التعيين الطازج</option>
+          <%#if (user.role === 'admin'){%>
+          <option value="/fresh/add">اضافة صنف</option>
+          <option value="/fresh/edit">تعديل صنف</option>
+          <option value="/fresh/delete">حذف صنف</option>
+          <%#}%>
+          <option value="/fresh/addAmount">صرف من المستودع</option>
+          <!-- <option value="/fresh/addCheck">إضافة إلى وجبة</option> -->
+        <!-- <option value="#">خروج صنف</option> -->
+        <!-- </select> -->
+        <a
+          href="/meals/check"
+          class="btn btn-link text-decoration-none text-light"
+        >
+          صرف الوجبات</a
+        >
+        <a
+          href="/returned/addAmount"
+          class="btn btn-link text-decoration-none text-light"
+        >
+          ارتجاع الأصناف</a
+        >
+        <!-- <select
+          name=""
+          id="purchases"
+          class="btn btn-link text-decoration-none text-light bg-dark text-end"
+        >
+          <option value="" class="" hidden>المشتروات</option>
+          <%#if (user.role === 'admin'){%>
+          <option value="/purchases/add">اضافة مشترى</option>
+          <option value="/purchases/edit">تعديل مشترى</option>
+          <option value="/purchases/delete">حذف مشترى</option>
+          <%#}%>
+          <option value="/purchases/buy">شراء</option>
+          <option value="/purchases">عرض</option>
+          <!-- <option value="#">خروج صنف</option> -->
+        <!-- </select> -->
+        <a
+          href="/purchases/buy"
+          class="btn btn-link text-decoration-none text-light"
+        >
+          شراء صنف</a
+        >
+        <%}%>
+        <!-- <a href="/store/0" class="btn btn-link text-decoration-none text-light">
+          المخزون</a
+        > -->
+        <select
+          name=""
+          id="reportsNav"
+          class="btn btn-link text-decoration-none text-light bg-dark text-end"
+          onchange="this.options[this.selectedIndex].value && (window.location = this.options[this.selectedIndex].value);"
+        >
+          <option value="" class="" hidden>التقارير</option>
+          <optgroup label="صرف التعيين">
+            <option value="/reports/0">-التعيين الجاف</option>
+            <option value="/reports/1">-التعيين الطازج</option>
+            <option value="/reports/4">-المرتجعات</option>
+            <option value="/reports/5">-المشتروات</option>
+          </optgroup>
+          <optgroup label="الجرد الفعلي للمخزن">
+            <option value="/store/0">-الجاف</option>
+            <option value="/store/1">-الطازج</option>
+          </optgroup>
+          <!-- <optgroup label="صرف المستودع"> -->
+          <option value="/reports/2">صرف المستودع</option>
+          <option value="/purchases">بيان بالمشتروات</option>
+          <!-- <option value="/fresh/addAmount">التعيين الطازج</option>
+            <option value="/purchases/addAmount">المشتروات</option> -->
+          <!-- </optgroup> -->
+          <!-- <option value="/dry/addCheck">إضافة إلى وجبة</option> -->
+          <!-- <option value="#">خروج صنف</option> -->
+        </select>
+        <!-- <a
+          href="/reports/0"
+          class="btn btn-link text-decoration-none text-light"
+        >
+          التقارير</a
+        > -->
+        <a href="/about" class="btn btn-link text-decoration-none text-warning">
+          عن المنظومة</a
+        >
+        <%if (user.role === 'admin') {%>
+        <a href="/users" class="btn btn-link text-decoration-none text-info">
+          ادارة المستخدمين</a
+        >
+        <%}%>
+      </div>
+
+      <div class="d-inline">
+        <span class="text-light mt-5">
+          <i class="bi bi-person-circle"></i>
+          <%=user.name%>
+        </span>
+        <form
+          action="/logout"
+          method="post"
+          class="btn btn-link text-decoration-none text-danger"
+        >
+          <button
+            type="submit"
+            class="btn btn-link text-decoration-none text-danger"
+          >
+            <i class="bi bi-door-open-fill"></i>
+            تسجيل الخروج
+          </button>
+        </form>
+        <img
+          title="السيد اللواء أح/ ياسر فتحي سليم رئيس جهاز الاستطلاع"
+          src="/public/images/leader.PNG"
+          alt=""
+          width="80"
+          style="margin-left: 2px"
+        />
+      </div>
+    </nav>
+  </body>
+  <script src="../../public/js/navbar.js"></script>
+</html>

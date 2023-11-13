@@ -1,0 +1,57 @@
+<%- include('../partials/navbar',user)%>
+    <form class="mt-5 d-flex justify-content-center" action="/dry/addCheck" method="post">
+        <div class="w-50">
+            <div class="p-4 m-5 card">
+                <h3 class="mb-5 text-center">(تعيين جاف) ادخال صرف</h3>
+
+
+                <div class="form-group form-floating mb-3">
+                    <select class="form-select" name="name" id="name" required>
+                        <option value="" hidden>اسم الصنف</option>
+                        <% for(let category of categories) {%>
+                            <option value="<%=JSON.stringify(category)%>"><%=category.name%></option>
+                            <%}%>
+                    </select>
+                    <label for="name">اسم الصنف</label>
+                </div>
+
+                <div class="form-group form-floating mb-3 p-2">
+                    <input type="number" min="0.25" step="0.25" id="amount" class="form-control"  name="amount" placeholder="الكمية" readonly>
+                    <label for="amount">الكميةالموجودة</label>
+                </div>
+
+                <div class="form-group form-floating mb-3">
+                    <input type="number" min="0.25" step="0.25" id="amountChecked" class="form-control"  name="amountChecked" placeholder="الكمية المصروفة" required>
+                    <label for="amountChecked">الكمية المصروفة</label>
+                </div>
+
+                    <div class="form-group form-floating mb-3">
+                    <select class="form-select" name="meal" id="meal" required>
+                        <option value="" hidden>نوع الصرفية</option>
+                            <option value="الفطار">الفطار</option>
+                            <option value="الغداء">الغداء</option>
+                            <option value="العشاء">العشاء</option>
+                    </select>
+                    <label for="meal">اسم الصنف</label>
+                </div>
+
+                <div class="form-group form-floating mb-3" hidden>
+                    <input type="text" class="form-control"  name="type" hidden value="جاف">
+                </div>
+                
+                <!-- <div class="form-group form-floating mb-3">
+                    <input type="file" class="form-control" name="image" id="image" placeholder="image"
+                        >
+                    <label for="image">صورة للجهاز</label>
+                </div> -->
+                <button type="submit" class="btn btn-primary">صرف</button>
+            </div>
+        </div>
+    </form>
+    </body>
+    <!-- <script src="../../public/js/jquery.js"></script> -->
+<!-- <script src="/javascripts/jquery-3.3.1.min"></script>
+<script src="/javascripts/jquery-1.12.4.min"></script> -->
+    <script src="../../public/js/addCheck.js"></script>
+
+    </html>

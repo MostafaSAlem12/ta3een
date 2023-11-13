@@ -1,0 +1,64 @@
+<%- include('../partials/navbar',user)%>
+    <form class="mt-5 d-flex justify-content-center" action="/purchases/add" method="post">
+        <div class="w-50">
+            <div class="p-4 m-5 card">
+                <h3 class="mb-5 text-center"> (مشتروات) اضافه صنف جديد </h3>
+            <%if (messages) {%> <%for(let message of messages) {%>
+            <div class="alert alert-danger text-center" role="alert">
+              <h5><%=message%></h5>
+            </div>
+            <%}%> <%}%>
+                <div class="form-group form-floating mb-3">
+                    <input type="text" class="form-control" id="name"  name="name" placeholder="اسم الصنف" required>
+                    <label for="name">اسم المشترى</label>
+                </div>
+
+                <div class="form-group form-floating mb-3">
+                    <input type="number" class="form-control" min="0.001" step="0.001" id="rate"  name="rate" placeholder="صرفية الفرد" required>
+                    <label for="rate">صرفية الفرد</label>
+                </div>
+
+                                <div class="form-group form-floating mb-3">
+                    <select class="form-select" name="unit" id="unit" required>
+                        <option value="" hidden>الوحدة</option>
+                        <% for(let unit of units) {%>
+                            <option value="<%=unit%>"><%=unit%></option>
+                            <%}%>
+                    </select>
+                    <label for="unit">الوحدة</label>
+                </div>
+
+                <div class="d-flex justify-content-center mb-3">
+                    <div class="form-check mx-5">
+                        <input class="form-check-input" type="checkbox" value="الفطار" id="breakFast" name="breakFast">
+                        <label class="form-check-label" for="breakFast">
+                            الفطار
+                        </label>
+                    </div>
+                    <div class="form-check mx-5">
+                        <input class="form-check-input" type="checkbox" value="الغداء" id="lunch" name="lunch">
+                        <label class="form-check-label" for="lunch">
+                            الغداء
+                        </label>
+                    </div>
+                    <div class="form-check mx-5">
+                        <input class="form-check-input" type="checkbox" value="العشاء" id="dinner" name="dinner">
+                        <label class="form-check-label" for="dinner">
+                            العشاء
+                        </label>
+                    </div>
+                </div>
+                
+                <!-- <div class="form-group form-floating mb-3">
+                    <input type="file" class="form-control" name="image" id="image" placeholder="image"
+                        >
+                    <label for="image">صورة للجهاز</label>
+                </div> -->
+                <button type="submit" class="btn btn-primary" id="submitBtn"> إضافة</button>
+            </div>
+        </div>
+    </form>
+    <script src="../../public/js/mealCheckBoxes.js"></script>
+    </body>
+
+    </html>

@@ -1,0 +1,30 @@
+<%- include('../partials/navbar',user)%>
+    <form class="mt-5 d-flex justify-content-center" action="/purchases/<%=purchase._id%>/editAmount?_method=PATCH" method="post">
+        <div class="w-50">
+            <div class="p-4 m-5 card">
+                <h3 class="mb-5 text-center">تعديل كمية مشترى</h3>
+
+
+                <div class="form-group form-floating mb-3">
+                    <input type="text" id="name" class="form-control"  name="name" placeholder="اسم الصنف" required value="<%=purchase.name%>" readonly>
+                    <label for="name">اسم المشترى</label>
+                </div>
+
+                <div class="form-group form-floating mb-3">
+                    <input type="number" min="0.001" step="0.001" id="amount" class="form-control"  name="amount" placeholder="الكمية بالكيلو" required value="<%=purchase.amount%>">
+                    <label for="amount">الكمية بالكيلو</label>
+                </div>
+
+                
+                <!-- <div class="form-group form-floating mb-3">
+                    <input type="file" class="form-control" name="image" id="image" placeholder="image"
+                        >
+                    <label for="image">صورة للجهاز</label>
+                </div> -->
+                <button type="submit" class="btn btn-primary"><i class="bi bi-pen-fill"></i> تعديل</button>
+            </div>
+        </div>
+    </form>
+    </body>
+
+    </html>

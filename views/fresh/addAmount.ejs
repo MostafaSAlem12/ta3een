@@ -1,0 +1,58 @@
+<%- include('../partials/navbar',user)%>
+    <form class="mt-5 d-flex justify-content-center" action="/fresh/addAmount" method="post" enctype="application/json">
+        <div class="w-50">
+            <div class="p-5 m-5 card">
+                <h3 class="mb-5 text-center">(تعيين طازج) صرف من المستودع</h3>
+                <div class="form-group form-floating mb-3">
+                    <input type="date" id="date" class="form-control"  name="date" placeholder="تاريخ الصرف" required>
+                    <label for="date">تاريخ الصرف</label>
+                </div>
+                <ul id="fieldList" style="list-style-type: none;" class="m-0 p-0">
+                    <li class="row">
+                        <div class="col-sm">
+                            <div class="form-group form-floating mb-3">
+                                <select class="form-select" name="categoryItems[0][name]" id="name" required>
+                                    <option value="" hidden>اسم الصنف</option>
+                                    <% for(let category of categories) {%>
+                                        <option value="<%=category.name%>"><%=category.name%></option>
+                                    <%}%>
+                                </select>
+                                <label for="name">اسم الصنف</label>
+                            </div>
+                        </div>
+                        <div class="col-sm">
+                            <div class="form-group form-floating mb-3">
+                                <input type="number" min="0.001" step="0.001" id="amount" class="form-control"  name="categoryItems[0][amount]" placeholder="الكمية" required>
+                                <label for="amount">الكمية</label>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+
+                <div class="form-group form-floating mb-3" hidden>
+                    <input type="text" class="form-control"  name="type" hidden value="طازج">
+                </div>
+                <input type="text" class="form-control"  id="categoriesField" hidden value="<%=JSON.stringify(categories)%>">
+                
+
+                
+                <!-- <div class="form-group form-floating mb-3">
+                    <input type="file" class="form-control" name="image" id="image" placeholder="image"
+                        >
+                    <label for="image">صورة للجهاز</label>
+                </div> -->
+                <div class="row">
+                    <div class="d-flex mb-2">
+                        <button type="button" id="addBtn" class="btn btn-outline-success"><i class="bi bi-plus"></i>
+                        </button>
+                        <button type="button" id="subBtn" class="btn btn-outline-danger mx-2"><i class="bi bi-dash"></i></button>
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-primary">حفظ</button>
+            </div>
+        </div>
+    </form>
+    </body>
+    <script src="../../public/js/addAmount.js"></script>
+
+    </html>

@@ -1,0 +1,32 @@
+<%- include('./partials/navbar',user)%>
+    <form class="mt-5 d-flex justify-content-center" action="/users/<%=profile._id%>/edit?_method=PATCH" method="post">
+        <div class="w-50">
+            <div class="p-4 m-5 card">
+                <h3 class="mb-5 text-center">تعديل مستخدم</h3>
+            <%if (messages) {%> <%for(let message of messages) {%>
+            <div class="alert alert-danger" role="alert">
+              <h5><%=message%></h5>
+            </div>
+            <%}%> <%}%>
+                <div class="form-group form-floating mb-3">
+                    <input type="text" class="form-control" id="name"  name="name" placeholder="اسم المستخدم" value="<%=profile.name%>">
+                    <label for="name">اسم المستخدم</label>
+                </div>
+
+                <div class="form-group form-floating mb-3">
+                    <select class="form-select" name="role" id="role">
+                        <option value="" hidden>الصلاحيات</option>
+                        <option value="user" <%if (profile.role === 'user') {%> selected <%}%>>user</option>
+                        <option value="leader" <%if (profile.role === 'leader') {%> selected <%}%>>leader</option>
+                        <option value="admin" <%if (profile.role === 'admin') {%> selected <%}%>>admin</option>
+                    </select>
+                    <label for="role">الصلاحيات</label>
+                </div>
+
+                <button type="submit" class="btn btn-primary">تعديل</button>
+            </div>
+        </div>
+    </form>
+    </body>
+
+    </html>

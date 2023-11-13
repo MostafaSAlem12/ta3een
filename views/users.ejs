@@ -1,0 +1,82 @@
+<%- include('./partials/navbar',user)%>
+<div class="w-75 text-center container mt-5">
+   
+        <h2 class="text-center mb-5">ادارة المستخدمين</h2>
+        <%if (users.length > 0) {%>
+            <table
+                class="table table-responsive table-hover table-bordered mx-auto bg-white rounded shadow text-center">
+                <thead class="table-primary">
+                    <tr class="text-center">
+                        <th>اسم المستخدم</th>
+                        <th>الصلاحيات</th>
+                        <th>مفعل</th>
+                        <th>تاريخ التسجيل</th>
+                        <th colspan="3">خيارات</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% for (let user of users) {%>
+                        <tr>
+                            <td>
+                                <h5><%= user.name %></h5>
+                            </td>
+                            <td>
+                                <h6><%= user.role %></h6>
+                            </td>
+                            <td>
+                                <h3><% if(user.isVerified) {%> <i class="bi bi-check text-success" width: 150></i><%} else {%><i class="bi bi-x text-danger"></i> <%}%></h3>
+                            </td>
+                            <td>
+                                <%= moment(new Date(user.createdAt)).format('DD-MM-YYYY') %>
+                            </td>
+                            <td>
+
+                                 <form action="/users/<%=user._id%>/verify" method="post">
+                                    <button type="submit" class="<% if (user.isVerified) {%>text-muted<%}else {%> text-success <%}%> text-center btn btn-link text-decoration-none" <%if (user.isVerified) {%>disabled <%}%>">
+                                            <%=user.isVerified? "مفعل": "تفعيل"%>
+                                    </button>
+                                </form>
+                            </td>
+                            <td>
+                                <a title="تعديل" href="/users/<%=user._id%>" class="btn btn-link text-decoration none"><i class="bi bi-pen-fill"></i></a>
+                            </td>
+                            <td>
+                                <form action="/users/<%=user._id%>/delete?_method=DELETE" method="post">
+                                    <button title="حذف" type="submit" class="btn btn-link text-danger text-decoration-none">
+                                            <i class="bi bi-trash-fill"></i>
+                                    </button>
+                                </form>
+                            </td>
+                        </tr>
+                   <%}%>
+                </tbody>
+            </table>
+                        <!-- <%#if (pagesCount > 1 && count > limit) {%>
+                <nav aria-label="Page navigation example" class="justify-content-center d-flex">
+                    <ul class="pagination">
+                        <%#if (page> 1) {%> <li class="page-item"><a class="page-link"
+                                    href="?page=<%#=parseInt(page)-1%><%#if (q) {%>&q=<%#=q%> <%#}%>">السابق</a></li>
+                            <%#}%>
+                                <%#for (let i=0; i < parseInt(pagesCount); i++) {%>
+                                    <li class="<%#if (parseInt(page) === i+1) {%> page-item active <%#}else {%> page-item <%#}%>>"><a class="page-link" href="<%#if (parseInt(page) === i+1) {%>#<%#}else {%>?page=<%#=i+1%><%#if (q) {%>&q=<%#=q%> <%#}%> <%#}%>">
+                                            <%#=i+1%>
+                                        </a></li>
+                                    <%#}%>
+
+
+                                        <%#if (page < parseInt(pagesCount)) {%>
+                                            <li class="page-item"><a class="page-link"
+                                                    href="?page=<%#=parseInt(page)+1%><%#if (q) {%>&q=<%#=q%> <%#}%>">التالي</a></li>
+                                            <%#}%>
+                    </ul>
+                </nav>
+                <%#}%> -->
+            <%} else {%>
+                
+                        <div class="card text-center mb-3">
+                            <h3 class="text-muted card-body">لا يوجد بيانات</h3>
+                        </div>
+                <%}%>
+         
+            </div>
+        </html>
