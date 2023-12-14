@@ -21,7 +21,12 @@
                     <div class="form-group form-floating col-sm mb-3">
                         <input type="number" id="power" class="form-control"  name="power" placeholder="القوة" required>
                         <label for="power">القوة</label>
-                    </div>                   
+                    </div>      
+                    <div class="form-group form-floating col-sm mb-3">
+                        <input type="number" id="plus" class="form-control"  name="plus" placeholder="الزيادة" disabled>
+                        <label for="plus">الزيادة</label>
+                    </div>       
+                    <input type="text" id="total" hidden>
                 </div>
 
 
@@ -80,10 +85,13 @@
         </div>
     </form>
     </body>
+<script src="../../public/js/powerPlus.js" defer></script>
+
 <script src="../../public/js/jquery.js"></script>
 <!-- <script src="/javascripts/jquery-3.3.1.min"></script>
 <script src="/javascripts/jquery-1.12.4.min"></script> -->
 <script src="../../public/js/check.js"></script>
+
     <!-- <script>
         $('#name').on('change',(e) => {
             const amount = JSON.parse($('#name').val()).amount

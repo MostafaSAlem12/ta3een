@@ -42,21 +42,97 @@
           class="btn btn-link text-decoration-none text-light bg-dark text-end"
           onchange="this.options[this.selectedIndex].value && (window.location = this.options[this.selectedIndex].value);"
         >
-          <option value="" class="" hidden>الأصناف</option>
-          <optgroup label="الجاف">
-            <option value="/dry/add">-اضافة صنف</option>
-            <option value="/dry/edit">-تعديل صنف</option>
-            <option value="/dry/delete">-حذف صنف</option>
+          <option value="" class="" hidden style="display: flex">
+            الأصناف
+          </option>
+
+          <optgroup
+            label="الجاف"
+            style="
+              display: inline-flex;
+              background-color: gray;
+              text-align: center; /* Center the text in the optgroup */
+              font-weight: 2000;
+            "
+          >
+            <option
+              value="/dry/add"
+              style="background-color: black; text-align: right"
+            >
+              -اضافة صنف
+            </option>
+            <option
+              value="/dry/edit"
+              style="
+                background-color: black;
+                text-align: right;
+                margin-right: 2px;
+              "
+            >
+              -تعديل صنف
+            </option>
+            <option
+              value="/dry/delete"
+              style="background-color: black; text-align: right"
+            >
+              -حذف صنف
+            </option>
           </optgroup>
-          <optgroup label="الطازج">
-            <option value="/fresh/add">-اضافة صنف</option>
-            <option value="/fresh/edit">-تعديل صنف</option>
-            <option value="/fresh/delete">-حذف صنف</option>
+
+          <optgroup
+            label="الطازج"
+            style="
+              background-color: gray;
+              text-align: center; /* Center the text in the optgroup */
+              text-decoration: solid;
+            "
+          >
+            <option
+              value="/fresh/add"
+              style="background-color: black; text-align: right"
+            >
+              -اضافة صنف
+            </option>
+            <option
+              value="/fresh/edit"
+              style="background-color: black; text-align: right"
+            >
+              -تعديل صنف
+            </option>
+            <option
+              value="/fresh/delete"
+              style="background-color: black; text-align: right"
+            >
+              -حذف صنف
+            </option>
           </optgroup>
-          <optgroup label="المشتروات">
-            <option value="/purchases/add">-اضافة صنف</option>
-            <option value="/purchases/edit">-تعديل صنف</option>
-            <option value="/purchases/delete">-حذف صنف</option>
+
+          <optgroup
+            label="المشتروات"
+            style="
+              background-color: gray;
+              text-align: center; /* Center the text in the optgroup */
+              text-decoration: solid;
+            "
+          >
+            <option
+              value="/purchases/add"
+              style="background-color: black; text-align: right"
+            >
+              -اضافة صنف
+            </option>
+            <option
+              value="/purchases/edit"
+              style="background-color: black; text-align: right"
+            >
+              -تعديل صنف
+            </option>
+            <option
+              value="/purchases/delete"
+              style="background-color: black; text-align: right"
+            >
+              -حذف صنف
+            </option>
           </optgroup>
           <!-- <option value="/dry/addCheck">إضافة إلى وجبة</option> -->
           <!-- <option value="#">خروج صنف</option> -->
@@ -150,25 +226,83 @@
           onchange="this.options[this.selectedIndex].value && (window.location = this.options[this.selectedIndex].value);"
         >
           <option value="" class="" hidden>التقارير</option>
-          <optgroup label="صرف التعيين">
-            <option value="/reports/0">-التعيين الجاف</option>
-            <option value="/reports/1">-التعيين الطازج</option>
-            <option value="/reports/4">-المرتجعات</option>
-            <option value="/reports/5">-المشتروات</option>
+          <optgroup
+            label="صرف التعيين"
+            style="
+              display: inline-flex;
+              background-color: gray;
+              text-align: center; /* Center the text in the optgroup */
+              font-weight: 2000;
+              text-decoration-color: red;
+            "
+          >
+            <option
+              value="/reports/0"
+              style="background-color: black; text-align: right"
+            >
+              -التعيين الجاف
+            </option>
+            <option
+              value="/reports/1"
+              style="background-color: black; text-align: right"
+            >
+              -التعيين الطازج
+            </option>
+            <option
+              value="/reports/4"
+              style="background-color: black; text-align: right"
+            >
+              -المرتجعات
+            </option>
+            <option
+              value="/reports/5"
+              style="background-color: black; text-align: right"
+            >
+              -المشتروات
+            </option>
           </optgroup>
-          <optgroup label="الجرد الفعلي للمخزن">
-            <option value="/store/0">-الجاف</option>
-            <option value="/store/1">-الطازج</option>
+          <optgroup
+            label="الجرد الفعلي للمخزن"
+            style="
+              display: inline-flex;
+              background-color: gray;
+              text-align: center; /* Center the text in the optgroup */
+              font-weight: 2000;
+            "
+          >
+            <option
+              value="/store/0"
+              style="background-color: black; text-align: right"
+            >
+              -الجاف
+            </option>
+            <option
+              value="/store/1"
+              style="background-color: black; text-align: right"
+            >
+              -الطازج
+            </option>
           </optgroup>
           <!-- <optgroup label="صرف المستودع"> -->
-          <option value="/reports/2">صرف المستودع</option>
-          <option value="/purchases">بيان بالمشتروات</option>
+          <option
+            value="/reports/2"
+            style="background-color: black; text-align: right"
+          >
+            صرف المستودع
+          </option>
+          <option
+            value="/purchases"
+            style="background-color: black; text-align: right"
+          >
+            بيان بالمشتروات
+          </option>
           <!-- <option value="/fresh/addAmount">التعيين الطازج</option>
             <option value="/purchases/addAmount">المشتروات</option> -->
           <!-- </optgroup> -->
           <!-- <option value="/dry/addCheck">إضافة إلى وجبة</option> -->
           <!-- <option value="#">خروج صنف</option> -->
         </select>
+
         <!-- <a
           href="/reports/0"
           class="btn btn-link text-decoration-none text-light"

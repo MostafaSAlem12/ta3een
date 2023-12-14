@@ -69,9 +69,10 @@ window.onload = function () {
     subBtn.disabled = true;
   }
 };
-// const add = function (itemLength) {
-//   itemLength++;
-// };
+const add = function (itemLength) {
+  itemLength++;
+};
+
 addBtn.addEventListener("click", function () {
   const length = fieldList.getElementsByTagName("li").length;
 
@@ -153,12 +154,12 @@ const refreshList = function (i) {
       $("#amountChecked" + i).val(amount);
     }
     calculateFromPower(amount, i, rate);
-    $("#power").on("input", () => calculateFromPower(amount, i, rate));
+    $("#total").on("input", () => calculateFromPower(amount, i, rate));
   });
 };
 
 const calculateFromPower = (amount, i, rate) => {
-  const power = $("#power").val() * rate;
-  const checkedAmount = Math.min(amount, power);
+  const total = $("#total").val() * rate;
+  const checkedAmount = Math.min(amount, total);
   $("#amountChecked" + i).val(checkedAmount);
 };

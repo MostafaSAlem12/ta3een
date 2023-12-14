@@ -12,15 +12,27 @@
                     <h2 class="text-center mb-5">تقرير صرف المشتروات</h2>
                     <%}%>
     <!-- <div class="text-center"><%#- include('./partials/tabs',tab,url)%></div> -->
-        <div class="w-50 py-3">
-            <form action="/reports/<%=tab%>" method="get">
-                <div class="input-group">
+        <div class="w-100 py-3  ">
+            <div class="row d-flex justify-content-between">
+            <form class="row" action="/reports/<%=tab%>" method="get">
+                <div class="input-group col-sm-6">
                         <input type="hidden" value="<%=parseInt(page||1)%>" name="page">
-                        <input type="search" class="form-control rounded" placeholder="بحث" aria-label="بحث"
+                        <input type="search" class="form-control rounded" placeholder= "بحث عن صنف محدد" aria-label="بحث"
                             aria-describedby="search-addon" name="q" value="<%=q%>"/>
-                        <button type="submit" class="btn btn-primary mx-1 rounded"> <i class="bi bi-search"></i> </button>
+                <button type="submit" class="btn btn-primary mx-1 rounded"> <i class="bi bi-search"></i> </button>
+
+ <button type="button" class="btn btn-primary m-2" id="advancedSearch">بحث متقدم</button>
+                    <div id="dates" class="col-sm-4"></div>
+
+
                 </div>
-            </form>
+                
+                  <div class="w-100 col-sm-6">
+                   
+                
+</div>
+</form>
+</div>
         </div>
         <%if (tab === 3) {%>
          <%if (reports.length > 0) {%>
@@ -347,4 +359,6 @@
                 <%}%>
                <%}%>    
             </div>
+a -->
+<script src="../public/js/dates.js" defer></script>
         </html>

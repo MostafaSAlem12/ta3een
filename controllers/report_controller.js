@@ -5,13 +5,31 @@ moment.locale("ar");
 const { config } = require("dotenv");
 config();
 
+const getDryReport = async (req, res) => {};
+
 const getReportsPage = async (req, res) => {
   const { user } = req.session;
   const limit = 10;
   const page = req.query.page || 1;
   const { tab } = req.params;
   if (process.env.NODE_ENV === "development") console.log(tab);
-  const { q } = req.query || "";
+  //const {dateStart,dateEnd} = req.query;
+  /*const query = {
+      date: {
+      $gte: new Date(dateStart),
+      $lte: new Date(dateEnd)
+      }
+  }*/
+  const q = req.query.q || "";
+  const start = req.query.start || "2022-01-01";
+  const end = req.query.end || "2024-01-01";
+  console.log("hi");
+  console.log({ q, start, end });
+
+  // if (q === "") {
+  //   query =
+  // }
+
   const query =
     q && q !== ""
       ? +tab === 3
@@ -65,6 +83,12 @@ const getReportsPage = async (req, res) => {
                     : +tab === 4
                     ? "مرتجع"
                     : "طازج",
+              },
+              {
+                date: {
+                  $gte: new Date(start),
+                  $lte: new Date(end),
+                },
               },
               {
                 $or: [
@@ -161,6 +185,8 @@ const getReportsPage = async (req, res) => {
     count,
     user,
     q,
+    start,
+    end,
   });
 };
 
