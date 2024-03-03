@@ -4,7 +4,7 @@
             <div class="p-5 m-5 card">
                 <h3 class="mb-5 text-center">(تعيين جاف) صرف من المستودع</h3>
                 <div class="form-group form-floating mb-3">
-                    <input type="date" id="date" class="form-control"  name="date" placeholder="تاريخ الصرف" required>
+                    <input type="date" id="date" class="form-control" name="date" placeholder="تاريخ الصرف" required>
                     <label for="date">تاريخ الصرف</label>
                 </div>
                 <ul id="fieldList" style="list-style-type: none;" class="m-0 p-0">
@@ -14,28 +14,45 @@
                                 <select class="form-select" name="categoryItems[0][name]" id="name" required>
                                     <option value="" hidden>اسم الصنف</option>
                                     <% for(let category of categories) {%>
-                                        <option value="<%=category.name%>"><%=category.name%></option>
-                                    <%}%>
+                                        <option value="<%=category.name%>">
+                                            <%=category.name%>
+                                        </option>
+                                        <%}%>
                                 </select>
                                 <label for="name">اسم الصنف</label>
                             </div>
                         </div>
                         <div class="col-sm">
                             <div class="form-group form-floating mb-3">
-                                <input type="number" min="0.001" step="0.001" id="amount" class="form-control"  name="categoryItems[0][amount]" placeholder="الكمية" required>
+                                <input type="number" min="0.001" step="0.001" id="amount" class="form-control"
+                                    name="categoryItems[0][amount]" placeholder="الكمية" required>
                                 <label for="amount">الكمية</label>
                             </div>
                         </div>
                     </li>
+                    <li class="row mb-5">
+                        <div class="form-group col">
+                            <label>تاريخ الإنتاج</label>
+                            <input type="date" class="form-control" name="categoryItems[0][production_date]">
+                        </div>
+                        <div class="form-group col">
+                            <label>تاريخ الإنتهاء</label>
+                            <input type="date" class="form-control" name="categoryItems[0][expiry_date]">
+                        </div>
+                        <hr style="margin-top: 25px;">
+                    </li>
+
                 </ul>
 
-                <div class="form-group form-floating mb-3" hidden>
-                    <input type="text" class="form-control"  name="type" hidden value="جاف">
-                </div>
-                <input type="text" class="form-control"  id="categoriesField" hidden value="<%=JSON.stringify(categories)%>">
-                
 
-                
+                <div class="form-group form-floating mb-3" hidden>
+                    <input type="text" class="form-control" name="type" hidden value="جاف">
+                </div>
+                <input type="text" class="form-control" id="categoriesField" hidden
+                    value="<%=JSON.stringify(categories)%>">
+
+
+
                 <!-- <div class="form-group form-floating mb-3">
                     <input type="file" class="form-control" name="image" id="image" placeholder="image"
                         >
@@ -43,9 +60,11 @@
                 </div> -->
                 <div class="row">
                     <div class="d-flex mb-2">
-                        <button type="button" id="addBtn" onclick="add(itemLength)" class="btn btn-outline-success"><i class="bi bi-plus"></i>
+                        <button type="button" id="addBtn" onclick="add(itemLength)" class="btn btn-outline-success"><i
+                                class="bi bi-plus"></i>
                         </button>
-                        <button type="button" id="subBtn" class="btn btn-outline-danger mx-2"><i class="bi bi-dash"></i></button>
+                        <button type="button" id="subBtn" class="btn btn-outline-danger mx-2"><i
+                                class="bi bi-dash"></i></button>
                     </div>
                 </div>
                 <button type="submit" class="btn btn-primary">حفظ</button>

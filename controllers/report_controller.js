@@ -22,7 +22,7 @@ const getReportsPage = async (req, res) => {
   }*/
   const q = req.query.q || "";
   const start = req.query.start || "2022-01-01";
-  const end = req.query.end || "2024-01-01";
+  const end = req.query.end || "2026-01-01";
   console.log("hi");
   console.log({ q, start, end });
 

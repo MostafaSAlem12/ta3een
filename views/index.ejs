@@ -1,20 +1,31 @@
 <%- include('./partials/navbar',user)%>
-<div class="container w-100 text-center mt-5">
-    <%if (user.role !== 'leader') {%>
-            <!-- <div class="mt-5 mb-3">
-            <form action="/search" method="get">
-                <div class="input-group">
-                    <input type="hidden" value="<%#parseInt(page||1)%>" name="page">
-                    <input type="search" class="form-control rounded" placeholder="بحث عن صنف" aria-label="بحث"
-                        aria-describedby="search-addon" name="q" required/>
-                    <button type="submit" class="btn btn-primary mx-1 rounded"><i class="bi bi-search"></i></button>
-                </div>
-            </form>
-        </div> -->
-        <%}%>
-    <img class="mt-2 g-5" src="/public/images/logo.png" alt="" width="400" />
-    <br>
-    <h1>منظومة مخازن التعيينات</h1>
-        <h4 style="font-weight: normal;">تم إنشاء المنظومة في عهد </h4> <h2><b> السيد اللواء أح/ ياسر فتحي سليم</b></h2> <h4 style="font-weight: normal;">رئيس جهاز الاستطلاع</h4> <h4 style="font-weight: normal;"> بواسطة فرع نظم المعلومات جهاز الاستطلاع </h4> <h4>عام 2023</h4>
-</div>
-</html>
+    <div class="container-fluid text-center mt-5">
+        <div class="row ">
+            <div class="col-2">
+                <% itemsWithDaysUntilExpiry.forEach(category=> { %>
+                    <%if (category.daysUntilExpiry <=0){%>
+                        <div class="alert alert-dark">تم إنتهاء صلاحية <%=category.name%> منذ
+                                <%=Math.abs(category.daysUntilExpiry)%> يوم
+                        </div>
+                        <%} else if (category.daysUntilExpiry <=10) {%>
+                            <div class="alert <%= category.daysUntilExpiry > 5 ? 'alert-warning' : 'alert-danger' %>">
+                                متبقي <%= category.daysUntilExpiry %> يوم على انتهاء صلاحية <%= category.name %>
+                            </div>
+                            <% }}); %>
+            </div>
+            <div class="col-2"></div>
+            <div class="col-4">
+                <img class="mt-2 g-5" src="/public/images/logo.png" alt="" width="400" />
+                <br>
+                <h1>منظومة مخازن التعيينات</h1>
+                <h4 style="font-weight: normal;">تم إنشاء المنظومة في عهد </h4>
+                <h2><b> السيد اللواء أح/ ياسر فتحي سليم</b></h2>
+                <h4 style="font-weight: normal;">رئيس جهاز الاستطلاع</h4>
+                <h4 style="font-weight: normal;"> بواسطة فرع نظم المعلومات جهاز الاستطلاع </h4>
+                <h4>عام 2023</h4>
+            </div>
+            <div class="col-4"></div>
+        </div>
+    </div>
+
+    </html>

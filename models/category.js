@@ -30,6 +30,12 @@ const schema = new Schema(
       type: [String],
       required: true,
     },
+    production_date: {
+      type: Date,
+    },
+    expiry_date: {
+      type: Date,
+    },
   },
   { timestamps: true, versionKey: false }
 );

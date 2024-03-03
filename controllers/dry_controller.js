@@ -75,6 +75,8 @@ const addAmount = async (req, res) => {
   for (let categoryItem of categoryItems) {
     const category = await Category.findOne({ name: categoryItem.name, type });
     category.amount += +categoryItem.amount;
+    category.production_date = categoryItem.production_date;
+    category.expiry_date = categoryItem.expiry_date;
     await category.save();
     const entryReport = new CategoryReport({
       name: categoryItem.name,

@@ -37,6 +37,10 @@ const schema = new Schema(
       type: Date,
       default: Date.now(),
     },
+    expireDate: {
+      type: Date
+      
+    }
   },
   { timestamps: true, versionKey: false }
 );

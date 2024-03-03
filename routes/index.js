@@ -6,9 +6,23 @@ const { config } = require("dotenv");
 config();
 router.get("/", async (req, res) => {
   const { user } = req.session;
-  const c = await Category.find();
-  if (process.env.NODE_ENV === "development") console.log(c);
-  res.render("index", { user });
+  const currentDate = new Date();
+  const itemsWithExpiry = await Category.find({
+    expiry_date: { $exists: true },
+  });
+  const itemsWithDaysUntilExpiry = itemsWithExpiry.map((item) => {
+    const expiryDate = new Date(item.expiry_date);
+    const daysUntilExpiry = Math.ceil(
+      (expiryDate - currentDate) / (1000 * 60 * 60 * 24)
+    );
+    return {
+      name: item.name,
+      daysUntilExpiry,
+    };
+  });
+  console.log(itemsWithExpiry);
+  console.log(itemsWithDaysUntilExpiry);
+  res.render("index", { user, itemsWithDaysUntilExpiry });
 });
 router.get("/about", async (req, res) => {
   const { user } = req.session;
